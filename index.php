@@ -8,8 +8,15 @@ $optParams = array(
   'singleEvents' => true,
   'timeMin' => date('c'),
 );
-$results = $service->events->listEvents($calendarId, $optParams);
-$events = $results->getItems();
+
+try {
+    $results = $service->events->listEvents($calendarId, $optParams);
+    $events = $results->getItems();
+}catch(Exception $e){
+    header($authUrl);
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>

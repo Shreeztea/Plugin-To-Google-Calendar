@@ -13,15 +13,12 @@ $client->setClientSecret($config['client_secret']);
 $client->setRedirectUri($config['redirect_uri']);
 $client->addScope(Google_Service_Calendar::CALENDAR);
 
+$authUrl = 'Location: ' . filter_var($client->createAuthUrl(), FILTER_SANITIZE_URL);
 if (!isset($_SESSION['access_token'])) {
     // Redirect to the OAuth consent page if the access token is not available
-    $authUrl = $client->createAuthUrl();
-    header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
+    header($authUrl);
     exit;
 } else {
     $client->setAccessToken($_SESSION['access_token']);
 }
-
 $service = new Google_Service_Calendar($client);
-
-?>

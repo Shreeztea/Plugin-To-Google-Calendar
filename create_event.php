@@ -19,8 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ));
     
     $calendarId = 'primary';
-    $event = $service->events->insert($calendarId, $event);
-
+    try{
+        $event = $service->events->insert($calendarId, $event);
+    }catch(Exception $e) {
+        header($authUrl);
+    }
     header('Location: index.php');
     exit;
 }

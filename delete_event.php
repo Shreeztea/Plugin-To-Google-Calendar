@@ -4,7 +4,11 @@ include 'header.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eventId = $_POST['event_id'];
     $calendarId = 'primary';
-    $service->events->delete($calendarId, $eventId);
+    try{
+        $service->events->delete($calendarId, $eventId);
+    }catch(Exception $e) {
+        header($authUrl);
+    }
     header('Location: index.php');
 }
 ?>
