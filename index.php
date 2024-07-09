@@ -31,12 +31,18 @@ try {
 <?php else: ?>
     <ul>
         <?php foreach ($events as $event): ?>
-            <li><?php echo $event->getSummary(); ?> (
+            <li><?php echo $event->getSummary(); ?> 
                 <?php 
-                    $startDateTime = new DateTime($event->getStart()->getDateTime());
-                    echo $startDateTime->format('l, F j, Y \a\t g:i A');
+                    if($event->getStart()->getDateTime())
+                    {
+                        $startDateTime = new DateTime($event->getStart()->getDateTime());
+                        echo '('.$startDateTime->format('l, F j, Y \a\t g:i A').')';
+                    }else if($event->start->date){
+                        $startDateTime = new DateTime($event->start->date);
+                        echo '('.$startDateTime->format('l, F j, Y \a\t g:i A').')';
+                    }
                 ?>
-            )
+            
             <form action="delete_event.php" method="post" style="display: inline;">
                     <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>">
                     <button type="submit">Delete</button>
