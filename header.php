@@ -13,6 +13,7 @@ $client->setClientSecret($config['client_secret']);
 $client->setRedirectUri($config['redirect_uri']);
 $client->addScope(Google_Service_Calendar::CALENDAR);
 
+$calendarId = 'primary';
 $authUrl = 'Location: ' . filter_var($client->createAuthUrl(), FILTER_SANITIZE_URL);
 if (!isset($_SESSION['access_token'])) {
     // Redirect to the OAuth consent page if the access token is not available

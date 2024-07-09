@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ),
     ));
     
-    $calendarId = 'primary';
     try{
         $event = $service->events->insert($calendarId, $event);
     }catch(Exception $e) {

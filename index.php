@@ -1,5 +1,6 @@
 <?php
 include "header.php";
+
 // List events
 $calendarId = 'primary';
 $optParams = array(
