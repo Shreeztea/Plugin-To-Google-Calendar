@@ -2,18 +2,17 @@
 include "header.php";
 
 // List events
-$calendarId = 'primary';
 $optParams = array(
-  'maxResults' => 10,
-  'orderBy' => 'startTime',
-  'singleEvents' => true,
-  'timeMin' => date('c'),
+    'maxResults' => 10,
+    'orderBy' => 'startTime',
+    'singleEvents' => true,
+    'timeMin' => date('c'),
 );
 
 try {
     $results = $service->events->listEvents($calendarId, $optParams);
     $events = $results->getItems();
-}catch(Exception $e){
+} catch (Exception $e) {
     header($authUrl);
     exit;
 }
@@ -22,48 +21,53 @@ try {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Google Calendar PHP App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+
 <body>
-<h1>Google Calendar Events</h1>
-<?php if (empty($events)): ?>
-    <p>No upcoming events found.</p>
-<?php else: ?>
-    <ul>
-        <?php foreach ($events as $event): ?>
-            <li><?php echo $event->getSummary(); ?> 
-                <?php 
-                    if($event->getStart()->getDateTime())
-                    {
-                        $startDateTime = new DateTime($event->getStart()->getDateTime());
-                        echo '('.$startDateTime->format('l, F j, Y \a\t g:i A').')';
-                    }else if($event->start->date){
-                        $startDateTime = new DateTime($event->start->date);
-                        echo '('.$startDateTime->format('l, F j, Y \a\t g:i A').')';
-                    }
-                ?>
-            
-            <form action="delete_event.php" method="post" style="display: inline;">
-                    <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>">
-                    <button type="submit">Delete</button>
-                </form>
-        </li>
-        <?php endforeach; ?>
-    </ul>
-<?php endif; ?>
 
-<h2>Create Event</h2>
-<form action="create_event.php" method="post">
-    <label for="summary">Summary:</label>
-    <input type="text" id="summary" name="summary" required>
-    <label for="start">Start Date & Time:</label>
-    <input type="datetime-local" id="start" name="start" required>
-    <label for="end">End Date & Time:</label>
-    <input type="datetime-local" id="end" name="end" required>
-    <button type="submit">Create Event</button>
-</form>
 
-<a href="disconnect.php">Disconnect</a>
+
+    <div class="container-lg p-3">
+        <div>
+            <a href="disconnect.php"><button class="btn btn-danger float-end">Disconnect</button></a>
+        </div>
+        <div class="row p-2 m-1">
+            <div class="col border border-dark-subtle m-2 p-2">
+                <?php include_once('event_list.php'); ?>
+
+            </div>
+            <div class="col-3 border border-white m-2 p-2">
+
+                <div>
+                    <h3 class="text-center">Create Event</h3>
+                    <form action="create_event.php" method="post">
+                        <div class="mb-3">
+                            <label for="summary" class="form-label">Summary</label>
+                            <input type="text" class="form-control" id="summary" name="summary" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="start" class="form-label">Start Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="start" name="start" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="end" class="form-label">End Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="end" name="end" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Create Event</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 </html>
