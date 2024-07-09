@@ -1,0 +1,17 @@
+{
+    "name": "root/intuji-assignment",
+    "autoload": {
+        "psr-4": {
+            "Root\\IntujiAssignment\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shristi Shrestha",
+            "email": "katestha@hotmail.com"
+        }
+    ],
+    "require": {
+        "google/apiclient": "^2.0"
+    }
+}
