@@ -9,7 +9,10 @@
 <body>
     <div class="container-lg p-3">
         <div>
-            <a href="disconnect.php"><button class="btn btn-danger float-end">Disconnect</button></a>
+            <form action="controllers/event_controller.php" method="post">
+                <input type="hidden" name="method" value="disconnect">
+                <button class="btn btn-danger float-end">Disconnect</button>
+            </form>
         </div>
         <div class="row p-2 m-1">
             <div class="col border border-dark-subtle m-2 p-2">
@@ -20,7 +23,8 @@
 
                 <div>
                     <h3 class="text-center">Create Event</h3>
-                    <form action="create_event.php" method="post">
+                    <form action="controllers/event_controller.php" method="post">
+                        <input type="hidden" name="method" value="createEvent">
                         <div class="mb-3">
                             <label for="summary" class="form-label">Title</label>
                             <input type="text" class="form-control" id="summary" name="summary" required>
@@ -40,9 +44,6 @@
             </div>
         </div>
     </div>
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

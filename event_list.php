@@ -1,21 +1,11 @@
 <?php
-include "header.php";
+require_once 'controllers/event_controller.php';
 
-// List events
-$optParams = array(
-    'maxResults' => 10,
-    'orderBy' => 'startTime',
-    'singleEvents' => true,
-    'timeMin' => date('c'),
-);
+// Instantiate EventController
+$controller = new EventController();
 
-try {
-    $results = $service->events->listEvents($calendarId, $optParams);
-    $events = $results->getItems();
-} catch (Exception $e) {
-    header($authUrl);
-    exit;
-}
+// Get the list of events
+$events = $controller->listEvents();
 
 ?>
 <h3 class="text-center">Google Calendar Events</h3>
@@ -60,7 +50,8 @@ try {
                         ?>
                     </td>
                     <td>
-                        <form action="delete_event.php" method="post" class="d-inline">
+                        <form action="controllers/event_controller.php" method="post">
+                            <input type="hidden" name="method" value="deleteEvent">
                             <input type="hidden" name="event_id" value="<?php echo $event->getId(); ?>">
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                         </form>
