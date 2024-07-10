@@ -17,7 +17,7 @@ $calendarId = 'primary';
 $authUrl = 'Location: ' . filter_var($client->createAuthUrl(), FILTER_SANITIZE_URL);
 if (!isset($_SESSION['access_token'])) {
     // Redirect to the OAuth consent page if the access token is not available
-    header($authUrl);
+    header('Location: login.php');
     exit;
 } else {
     $client->setAccessToken($_SESSION['access_token']);
