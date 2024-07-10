@@ -1,24 +1,3 @@
-<?php
-include "header.php";
-
-// List events
-$optParams = array(
-    'maxResults' => 10,
-    'orderBy' => 'startTime',
-    'singleEvents' => true,
-    'timeMin' => date('c'),
-);
-
-try {
-    $results = $service->events->listEvents($calendarId, $optParams);
-    $events = $results->getItems();
-} catch (Exception $e) {
-    header($authUrl);
-    exit;
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -28,9 +7,6 @@ try {
 </head>
 
 <body>
-
-
-
     <div class="container-lg p-3">
         <div>
             <a href="disconnect.php"><button class="btn btn-danger float-end">Disconnect</button></a>
@@ -46,7 +22,7 @@ try {
                     <h3 class="text-center">Create Event</h3>
                     <form action="create_event.php" method="post">
                         <div class="mb-3">
-                            <label for="summary" class="form-label">Summary</label>
+                            <label for="summary" class="form-label">Title</label>
                             <input type="text" class="form-control" id="summary" name="summary" required>
                         </div>
                         <div class="mb-3">

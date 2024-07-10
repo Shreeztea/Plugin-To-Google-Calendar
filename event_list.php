@@ -1,3 +1,23 @@
+<?php
+include "header.php";
+
+// List events
+$optParams = array(
+    'maxResults' => 10,
+    'orderBy' => 'startTime',
+    'singleEvents' => true,
+    'timeMin' => date('c'),
+);
+
+try {
+    $results = $service->events->listEvents($calendarId, $optParams);
+    $events = $results->getItems();
+} catch (Exception $e) {
+    header($authUrl);
+    exit;
+}
+
+?>
 <h3 class="text-center">Google Calendar Events</h3>
 <?php if (empty($events)): ?>
     <p>No upcoming events found.</p>
@@ -6,7 +26,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Summary</th>
+                <th scope="col">Title</th>
                 <th scope="col">From Date</th>
                 <th scope="col">To Date</th>
                 <th scope="col">Actions</th>
