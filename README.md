@@ -1,4 +1,4 @@
-# intuji-assignment
+# Plugin-To-Google-Calendar
 
 ## Setup Instructions
 
